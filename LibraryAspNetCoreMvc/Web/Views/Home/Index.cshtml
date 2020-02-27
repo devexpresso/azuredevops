@@ -1,0 +1,104 @@
+﻿@using Web.Models;
+
+@{
+    ViewData["Title"] = "Library Home";
+}
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="~/images/library.jpg" alt="ASP.NET" class="img-responsive" />
+            <div class="carousel-caption" role="option">
+                <p>
+                    Get List of Books and Audio Books from this exclusive library 
+                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">
+                        Learn More
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/images/library1.jpg" alt="Visual Studio" class="img-responsive" />
+            <div class="carousel-caption" role="option">
+                <p>
+                    Perform administrative task to manage books in your library
+                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">
+                        Learn More
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="~/images/library2.jpg" alt="Microsoft Azure" class="img-responsive" />
+            <div class="carousel-caption" role="option">
+                <p>
+                    Find the nearest library next to your location
+                    <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkID=525027&clcid=0x409">
+                        Learn More
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>List of Books available</h2>
+        <div class="container">
+            <h4>List of Books and Authors</h4>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>SubTitle</th>
+                        <th>Author</th>
+                        <th>Publisher</th>
+                        <th>Published Date</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Snapshot</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{ 
+                        foreach(Volume item in Model)
+                        {
+                        <tr>
+                            <td>@item.VolumeInfo.Title</td>
+                            <td>@item.VolumeInfo.SubTitle</td>
+                            <td>@item.VolumeInfo.Authors?.FirstOrDefault()</td>
+                            <td>@item.VolumeInfo.Publisher</td>
+                            <td>@item.VolumeInfo.PublishedDate</td>
+                            <td>@item.VolumeInfo.Description</td>
+                            <td>@item.VolumeInfo.Categories?.FirstOrDefault()</td>
+                            <td><img src="@item.VolumeInfo.ImageLinks?.Thumbnail" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="7" style="align-content:center;"><button id="@item.Id" value="Buy Book" onclick="SelectBook('@item.VolumeInfo.Title');">Buy Book</button></td>
+                        </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+    function SelectBook(title) {
+        alert("You have selected the book: " + title);
+    }
+</script>
